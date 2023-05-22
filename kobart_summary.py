@@ -218,7 +218,7 @@ for test_sample in tqdm(test_samples):
     summaries_after_tuning.append(generate_summary(test_sample, model)[1])
 summaries_after_tuning = list(itertools.chain(*summaries_after_tuning))
 
-rouge.get_scores(summaries_after_tuning, test_samples["Summary"], avg=True)
+score = rouge.get_scores(summaries_after_tuning, test_samples["Summary"], avg=True)
 
 for i in range(0, len(summaries_after_tuning), 1000):
     print('idx_{} '.format(i))
@@ -227,6 +227,8 @@ for i in range(0, len(summaries_after_tuning), 1000):
     print("Target summary \n"+ test_samples["Summary"][i])
     print("")
     print('Text'+ test_samples["Text"][i])
+    print("")
+    print(score)
     print('-'*100)
     print("") 
 
