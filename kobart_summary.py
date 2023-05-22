@@ -191,7 +191,7 @@ trainer = Seq2SeqTrainer(
     #callbacks = [EarlyStoppingCallback(early_stopping_patience=2)]
 )
 
-# trainer.train()
+trainer.train()
 
 def generate_summary(test_samples, model):
 
