@@ -102,6 +102,9 @@ max_input = 256
 max_target = 64
 ignore_index = -100# tokenizer.pad_token_id
 
+
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
 def add_ignored_data(inputs, max_len, ignore_index):
   if len(inputs) < max_len:
       pad = [ignore_index] *(max_len - len(inputs)) # ignore_index즉 -100으로 패딩을 만들 것인데 max_len - lne(inpu)
@@ -189,7 +192,7 @@ trainer = Seq2SeqTrainer(
     tokenizer=tokenizer,
     compute_metrics=compute_metrics,
     #callbacks = [EarlyStoppingCallback(early_stopping_patience=2)]
-)
+).to(device)
 
 trainer.train()
 
