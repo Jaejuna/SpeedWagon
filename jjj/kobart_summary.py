@@ -27,8 +27,8 @@ import os
 
 transformers.__version__ # 4.25.1에 맞추기
 
-train = pd.read_csv('C:/Users/user/git/SpeedWagon/train.csv')
-valid = pd.read_csv('C:/Users/user/git/SpeedWagon/valid.csv')
+train = pd.read_csv('./train.csv')
+valid = pd.read_csv('./valid.csv')
 
 def preprocess_sentence(sentence):
     sentence = sentence.lower() # 텍스트 소문자화

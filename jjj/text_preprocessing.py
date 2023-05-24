@@ -3,6 +3,8 @@ import re
 
 import pandas as pd
 
+device = 'cuda'
+
 train = pd.read_csv('C:/Users/user/git/SpeedWagon/train.csv')
 valid = pd.read_csv('C:/Users/user/git/SpeedWagon/valid.csv')
 
