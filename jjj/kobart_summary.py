@@ -192,9 +192,9 @@ trainer = Seq2SeqTrainer(
     tokenizer=tokenizer,
     compute_metrics=compute_metrics,
     #callbacks = [EarlyStoppingCallback(early_stopping_patience=2)]
-).to(device)
+)
 
-trainer.train()
+trainer.train().to(device)
 
 def generate_summary(test_samples, model):
 
@@ -225,9 +225,9 @@ score = rouge.get_scores(summaries_after_tuning, test_samples["Summary"], avg=Tr
 
 for i in range(0, len(summaries_after_tuning), 1000):
     print('idx_{} '.format(i))
-    print("Summary after \n"+ summaries_after_tuning[i])
+    print("Summary after /n"+ summaries_after_tuning[i])
     print("")
-    print("Target summary \n"+ test_samples["Summary"][i])
+    print("Target summary /n"+ test_samples["Summary"][i])
     print("")
     print('Text'+ test_samples["Text"][i])
     print("")
