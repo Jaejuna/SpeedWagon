@@ -51,7 +51,7 @@ def data_process(data):
   return text
 
 train_texts = data_process(train['Text'])
-val_texts = data_process(train['Text'])
+val_texts = data_process(valid['Text'])
 
 train_df = pd.DataFrame(zip(train_texts,train['Summary']), columns=['Text', 'Summary'])
 val_df = pd.DataFrame(zip(val_texts,valid['Summary']), columns=['Text', 'Summary'])
