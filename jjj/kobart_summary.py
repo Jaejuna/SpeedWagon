@@ -25,6 +25,8 @@ import glob
 import json
 import os
 
+import optuna
+
 transformers.__version__ # 4.25.1에 맞추기
 
 train = pd.read_csv('../train.csv')
@@ -151,6 +153,7 @@ train_tokenize_data = train_data.map(preprocess_data, batched = True, remove_col
 val_tokenize_data = val_data.map(preprocess_data, batched = True, remove_columns=['Text', 'Summary'])
 
 rouge = Rouge()
+
 def compute_metrics(pred):
     labels_ids = pred.label_ids
     pred_ids = pred.predictions
@@ -179,6 +182,7 @@ training_args = Seq2SeqTrainingArguments(
     logging_strategy = 'epoch',
     evaluation_strategy  = 'epoch',
     save_strategy ='epoch',
+    gpus=2
 )
 
 data_collator = DataCollatorForSeq2Seq(tokenizer, model=model) # 데이터 일괄 처리? 
@@ -194,7 +198,22 @@ trainer = Seq2SeqTrainer(
     #callbacks = [EarlyStoppingCallback(early_stopping_patience=2)]
 )
 
-trainer.train().to(device)
+trainer.train()
+
+### optuna skeletion
+def objective(trial):
+    for step in range(100):
+        ### trainer.train()
+        intermediate_value = rouge.get_scores(summaries_after_tuning, test_samples["Summary"], avg=True)
+        trial.report(intermediate_value, step=step)
+        if trial.should_prune():
+            raise optuna.TrialPruned()
+
+    return rouge.get_scores(summaries_after_tuning, test_samples["Summary"], avg=True)
+
+study = optuna.create_study(direction="maximize")
+study.optimize(objective, n_trials=3)
+print(study.best_trial.params)
 
 def generate_summary(test_samples, model):
 
@@ -234,4 +253,3 @@ for i in range(0, len(summaries_after_tuning), 1000):
     print(score)
     print('-'*100)
     print("") 
-
