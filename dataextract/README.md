@@ -10,3 +10,5 @@
 
 - train_new_topic1/valid_new_topic1.csv : 개인및관계 토픽만 1/10씩 추출(train 약 2.7만개)
 - train_new_topic2/valid_new_topic2.csv : 개인및관계 토픽만 1/5씩 추출(train 약 5.5만개)
+
+2.7만 / 5.5만 / 10만 / 14.5만 / 19만 / 23만 / 27만
