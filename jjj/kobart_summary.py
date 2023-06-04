@@ -184,7 +184,7 @@ training_args = Seq2SeqTrainingArguments(
     logging_strategy = 'epoch',
     evaluation_strategy  = 'epoch',
     save_strategy ='epoch',
-    gpus=2
+    # gpus=2
 )
 
 data_collator = DataCollatorForSeq2Seq(tokenizer, model=model) # 데이터 일괄 처리? 
