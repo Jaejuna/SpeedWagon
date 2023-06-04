@@ -29,8 +29,8 @@ import optuna
 
 transformers.__version__ # 4.25.1에 맞추기
 
-train = pd.read_csv('/proj/data/train_new_4.csv')
-valid = pd.read_csv('/proj/data/valid_new_4.csv')
+train = pd.read_csv('/proj/SpeedWagon/data/train_new_4.csv')
+valid = pd.read_csv('/proj/SpeedWagon/data/valid_new_4.csv')
 
 train['Topic'].unique()
 
